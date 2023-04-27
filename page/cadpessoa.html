@@ -33,7 +33,8 @@
                     uf: inputUF.value
 
                 };
-                salvarEndereco(endereco, $http, $window, false);
+                salvarEndereco(endereco, $http, $window, false, $scope);
+                $scope.limpaInput();
             }
 
             $scope.limpaInput = function limpaInput() {
@@ -69,7 +70,7 @@
             };
 
             $scope.getEnd = function getEnd(pessoaId) {
-                $scope.enderecos = getEnderecos();
+                $scope.enderecos = getEnderecos($http, $scope, pessoaId);
             };
 
             $scope.exibEnd(false);

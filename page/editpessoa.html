@@ -21,7 +21,8 @@
                     uf: inputUF.value
                 };
                 $scope.salvar();
-                salvarEndereco(endereco, $http, $window, true);
+
+                salvarEndereco(endereco, $http, $window, true, $scope);
             }
 
             $scope.salvar = function salvar() {
@@ -40,7 +41,7 @@
 
             $scope.pessoa = JSON.parse(window.sessionStorage.getItem('keyPessoa'));
 
-            getEndereco($http, $scope);
+            getEndereco($http, $scope, $scope.pessoa.pessoaId);
 
             $scope.delete = function deletar(enderecoId) {
                 deletarEndereco($http, enderecoId, $window);

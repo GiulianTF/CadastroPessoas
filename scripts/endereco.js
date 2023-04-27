@@ -1,6 +1,6 @@
-function getEndereco(http, scope) {
+function getEndereco(http, scope, pessoaId) {
     http({
-        url: "https://www.selida.com.br/avaliacaotecnica/api/Endereco/GetAll/" + scope.pessoa.pessoaId,
+        url: "https://www.selida.com.br/avaliacaotecnica/api/Endereco/GetAll/" + pessoaId,
         method: 'GET',
         headers: { 'Chave': '70203B9A-A3A6-47DD-8025-33319B7B81C2' },
     })
@@ -11,7 +11,7 @@ function getEndereco(http, scope) {
         });
 };
 
-function salvarEndereco(endereco, http, window, reload) {
+function salvarEndereco(endereco, http, window, reload, scope) {
     console.log(JSON.stringify(endereco));
     http({
         url: "https://www.selida.com.br/avaliacaotecnica/api/Endereco",
@@ -20,8 +20,14 @@ function salvarEndereco(endereco, http, window, reload) {
         data: JSON.stringify(endereco)
     })
         .then(function (response) {
-            if (response.data.code == "200" && reload) {
-                window.location.reload();
+            if (response.data.code == "200") {
+                if (reload){
+                    window.location.reload();
+                }
+                else {
+                    getEndereco(http, scope, scope.pessoaId);
+                }
+
             };
         });
 
